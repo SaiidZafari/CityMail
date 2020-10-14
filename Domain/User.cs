@@ -94,7 +94,6 @@ namespace CityMail.Domain
                 Regex regexPassword = new Regex(@"[a-zA-Z0-9!()]");
                 string userName;
                 string password;
-                //User newUser = new User();
 
                 do
                 {
@@ -113,7 +112,7 @@ namespace CityMail.Domain
                         string goodBye = null;
                         foreach (var word in goodbye)
                         {
-                            System.Threading.Thread.Sleep(300);
+                            System.Threading.Thread.Sleep(200);
                             pos += i;
                             goodBye = goodBye + word;
                             Console.SetCursorPosition(48, 10);
@@ -160,7 +159,6 @@ namespace CityMail.Domain
                         continue;
                     }
                 }
-                //System.Threading.Thread.Sleep(2000);  //It must be Activated
 
             } while (doAgain);
 

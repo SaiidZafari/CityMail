@@ -1,2 +1,2 @@
-1000,Peter Pan,NeverLand 32,Delivered,car8000,13-10-2020 22:44:42,13-10-2020 22:44:42
-1001,Johan Doe,Sesame Street 1,2 min to Delivery,quad9000,13-10-2020 23:04:24,14-10-2020 00:04:24
+1000,Johan Doe,Sesame Street 1,14 min to Delivery,car8000,14-10-2020 22:44:34,14-10-2020 23:44:34
+1001,Peter Pan,Neverlan 234,30 min to Delivery,quad9000,14-10-2020 23:00:55,15-10-2020 00:00:55

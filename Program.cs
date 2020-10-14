@@ -1,7 +1,6 @@
 ﻿using City_Mail.Domain;
 using CityMail.Domain;
 using System;
-using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 
 namespace CityMail
@@ -90,10 +89,10 @@ namespace CityMail
                                             switch (caseOneOne)
                                             {
                                                 case CaseOneOne.Car:
-                                                    FunktionsBase.CaseOneOneCar();
+                                                    toExit = FunktionsBase.CaseOneOneAddCar();
                                                     break;
                                                 case CaseOneOne.Quadcopter:
-                                                    FunktionsBase.CaseOneOneQuadcopter();
+                                                    toExit = FunktionsBase.CaseOneOneAddQuadcopter();
                                                     break;
                                                 case CaseOneOne.Exit:
                                                     toExit = false;

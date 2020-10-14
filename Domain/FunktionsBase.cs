@@ -11,10 +11,7 @@ namespace City_Mail.Domain
     class FunktionsBase
     {
 
-        /// <summary>
-        /// Add Car to the Database / List
-        /// </summary>
-        public static void CaseOneOneCar()
+        public static bool CaseOneOneAddCar()
         {
             string answer = string.Empty;
             bool doAgain = false;
@@ -41,8 +38,7 @@ namespace City_Mail.Domain
                 CarRegister.ViewCarRegistrationList();
 
                 string carID = string.Empty;
-                Register register = new Register();
-                register = new CarRegister(carID);
+                Register register = new CarRegister(carID);
                 Console.SetCursorPosition(29, 6);
                 Console.WriteLine($"{register.AutoGeneratID()}");
 
@@ -81,7 +77,6 @@ namespace City_Mail.Domain
                 {
 
                     doAgain = false;
-                    break;
                 }
                 else
                 {
@@ -134,12 +129,10 @@ namespace City_Mail.Domain
 
             } while (doAgain);
 
+            return true;
         }
 
-        /// <summary>
-        /// Add Quadcopter to the Database / List
-        /// </summary>
-        public static void CaseOneOneQuadcopter()
+        public static bool CaseOneOneAddQuadcopter()
         {
             string answer = string.Empty;
             bool doAgain = false;
@@ -166,8 +159,7 @@ namespace City_Mail.Domain
                 QuadcopterRegister.ViewQuadcopterRegistrationList();
 
                 string quadcopterID = string.Empty;
-                Register register = new Register();
-                register = new QuadcopterRegister(quadcopterID);
+                Register register = new QuadcopterRegister(quadcopterID);
                 Console.SetCursorPosition(29, 6);
                 Console.WriteLine($"{register.AutoGeneratID()}");
 
@@ -201,7 +193,6 @@ namespace City_Mail.Domain
                 {
 
                     doAgain = false;
-                    break;
                 }
                 else
                 {
@@ -254,6 +245,7 @@ namespace City_Mail.Domain
 
             } while (doAgain);
 
+            return true;
         }
 
 
@@ -283,9 +275,9 @@ namespace City_Mail.Domain
                 Console.SetCursorPosition(0, 4);
                 Console.WriteLine($@" 
         Please Enter ID of the Item you wish to find : 
-                              car(9)123 / quad(9)123 ");
+                              car(8)123 / quad(9)123 ");
 
-                Console.SetCursorPosition(0, 8);
+                Console.SetCursorPosition(0, 10);
                 Register.ViewRegistrationList();
 
                 Console.SetCursorPosition(90, 24);
@@ -531,6 +523,7 @@ namespace City_Mail.Domain
             string status = "Comming Soon";
             do
             {
+                Dictionary<string, Register> regiterDictionary = Register.TransferRegisterDataBasetoDictionary();
                 Dictionary<int, RegisterPackage> packageToDeleteDictionary = RegisterPackage.TransferRegisterPackageDataBasetoDictionary();
                 Console.Clear();
                 Console.WriteLine($@"
@@ -541,11 +534,6 @@ namespace City_Mail.Domain
                 Console.WriteLine($"{"1.Registar",-12}{"2.Delete",-10}{"3.Exit",-8}");
                 Console.SetCursorPosition(7, 4);
                 Console.WriteLine("Please choose one of these options above:");
-
-                //Console.SetCursorPosition(0, 14);
-                //RegisterPackage.ViewStartDeliveryManagmentList();
-                //Console.SetCursorPosition(0, 14);
-                //Register.ViewRegistrationListRight();
 
                 Register.ViewRegistrationListRight();
 
@@ -567,7 +555,7 @@ namespace City_Mail.Domain
 
                 else if (option == "2")
                 {
-                    Console.SetCursorPosition(7, 9);
+                    Console.SetCursorPosition(7, 8);
                     Console.Write("Please enter ID you wish to Delete: ");
 
                     Regex deleteIDRegex = new Regex(@"[1][0-9][0-9][0-9]$");
@@ -606,7 +594,7 @@ namespace City_Mail.Domain
                         packageToDeleteDictionary.Remove(int.Parse(deleteID));
 
                         File.WriteAllLines(FilesPath.registerPackagePath, packageToDeleteDictionary.Select(kvp =>
-                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
+                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.VehicleID},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
 
                         Console.SetCursorPosition(7, 10);
                         Console.Write($"ID number: {deleteID} deleted !                                   ");
@@ -669,10 +657,16 @@ namespace City_Mail.Domain
                     do
                     {
                         Console.SetCursorPosition(30, 10);
-                        Console.WriteLine("                           ");
+                        Console.WriteLine("                                                             ");
                         Console.SetCursorPosition(30, 10);
                         deliveryUnitID = Console.ReadLine().ToLower();
-
+                        if (!regiterDictionary.ContainsKey(deliveryUnitID))
+                        {
+                            Console.SetCursorPosition(30, 10);
+                            Console.WriteLine("Wrong UnitID! Please try again...");
+                            Thread.Sleep(2000);
+                            deliveryUnitID = "Wrong Unit";
+                        }
                     } while (!clientIDRegex.IsMatch(deliveryUnitID));
 
 
@@ -688,7 +682,7 @@ namespace City_Mail.Domain
                         Console.SetCursorPosition(57, 11);
                         answer = Console.ReadLine().ToUpper();
                     } while (!answerRegex.IsMatch(answer));
-                    Console.SetCursorPosition(15, 11);
+                    Console.SetCursorPosition(10, 11);
                     Console.Write("                                                  ");
                     if (answer == "Y")
                     {
@@ -706,7 +700,7 @@ namespace City_Mail.Domain
 
                         File.AppendAllLines(FilesPath.registerPackagePath, registerPackageDeictionary.Select(kvp =>
                         string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.VehicleID},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
-                        Console.SetCursorPosition(10, 12);
+                        Console.SetCursorPosition(10, 11);
                         Console.Write("Package registered");
                         Thread.Sleep(2000);
                         doAgain = true;
