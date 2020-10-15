@@ -13,14 +13,14 @@ namespace City_Mail.Domain
             ID = AutoGeneratID();
             Capacity = capacity;
             Reach = reach;
-            TransponderID = transponderID;
+            RegistrationNumber = transponderID;
         }
         public QuadcopterRegister(string iD, int capacity, int reach, string transponderID)
         {
             ID = iD;
             Capacity = capacity;
             Reach = reach;
-            TransponderID = transponderID;
+            RegistrationNumber = transponderID;
         }
 
         public QuadcopterRegister(string iD)
@@ -28,7 +28,7 @@ namespace City_Mail.Domain
             ID = AutoGeneratID();
         }
 
-        public string TransponderID { get; set; }
+        //public string RegistrationNumber { get; set; }
 
 
 
@@ -93,7 +93,7 @@ namespace City_Mail.Domain
 
             addListToFileDictionary.Add(iD, addQuadcopterToList);
             File.AppendAllLines(FilesPath.quadcopterPath, addListToFileDictionary.Select(kvp =>
-            string.Format($"{kvp.Value.ID}, {kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.TransponderID}")));
+            string.Format($"{kvp.Value.ID}, {kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.RegistrationNumber}")));
 
         }
 
@@ -118,7 +118,7 @@ namespace City_Mail.Domain
                 foreach (var register in quadcopterRegistarion.Values)
                 {
                     Console.Write($@"
-            {register.ID,-11}{register.Capacity,-11}{register.Reach,-8}{register.TransponderID,-11}");
+            {register.ID,-11}{register.Capacity,-11}{register.Reach,-8}{register.RegistrationNumber,-11}");
                 }
             }
             

@@ -14,7 +14,7 @@ namespace City_Mail.Domain
         public string ID { get;  set; }
         public int Capacity { get; set; }
         public int Reach { get;  set; }
-        public string Registration { get; set; }
+        public string RegistrationNumber { get; set; }
 
 
         public virtual string AutoGeneratID()
@@ -50,7 +50,7 @@ namespace City_Mail.Domain
             return startID.ToString();
         }
 
-
+        
 
         public static void AddCarAndQuadcopterToRegisterDB()
         {
@@ -60,18 +60,17 @@ namespace City_Mail.Domain
             if (carRegisterDictionary.Count != 0)
             {
                 File.WriteAllLines(FilesPath.registerPath, carRegisterDictionary.Select(kvp =>
-           string.Format($"{kvp.Value.ID},{kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.CarRegistrationNumber}")));
+           string.Format($"{kvp.Value.ID},{kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.RegistrationNumber}")));
             }
 
             Dictionary<string, QuadcopterRegister> QuadcoperRegisterDictionary = QuadcopterRegister.TransferQuadcopterDataBasetoDictionary();
             if (QuadcoperRegisterDictionary.Count != 0)
             {
                 File.AppendAllLines(FilesPath.registerPath, QuadcoperRegisterDictionary.Select(kvp =>
-            string.Format($"{kvp.Value.ID},{kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.TransponderID}")));
+            string.Format($"{kvp.Value.ID},{kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.RegistrationNumber}")));
             }
 
         }
-
 
         public static Dictionary<string, Register> TransferRegisterDataBasetoDictionary()
         {
@@ -88,7 +87,7 @@ namespace City_Mail.Domain
                 registerValue.ID = regiterSplit[0];
                 registerValue.Capacity = int.Parse(regiterSplit[1]);
                 registerValue.Reach = int.Parse(regiterSplit[2]);
-                registerValue.Registration = regiterSplit[3];
+                registerValue.RegistrationNumber = regiterSplit[3];
 
                 registerDictionary.Add(regiterSplit[0], registerValue);
             }
@@ -123,7 +122,7 @@ namespace City_Mail.Domain
                 foreach (var registerPackage in registerPackageDictionary.Values)
                 {
                     Console.SetCursorPosition(5, vertical);
-                    Console.Write($@"{registerPackage.ID,-7}{registerPackage.Sender,-18}{registerPackage.Destination,-15}{registerPackage.VehicleID,20}");
+                    Console.Write($@"{registerPackage.ID,-7}{registerPackage.Sender,-18}{registerPackage.Destination,-15}{registerPackage.RegistrationNumber,20}");
                     vertical++;
                 }
             }
@@ -131,7 +130,7 @@ namespace City_Mail.Domain
 
             int pos = 17;
             AddCarAndQuadcopterToRegisterDB();
-            Dictionary<string, Register> RegisterDictionary = TransferRegisterDataBasetoDictionary();
+            Dictionary<string, Register> RegisterDictionary = Register.TransferRegisterDataBasetoDictionary();
 
             if (RegisterDictionary.Count == 0)
             {
@@ -152,7 +151,7 @@ namespace City_Mail.Domain
                 foreach (var register in RegisterDictionary.Values)
                 {
                     Console.SetCursorPosition(70, pos);
-                    Console.Write($@" {register.ID,-11}{register.Capacity,-11}{register.Reach,-8}{register.Registration,-11}");
+                    Console.Write($@" {register.ID,-11}{register.Capacity,-11}{register.Reach,-8}{register.RegistrationNumber,-11}");
                     pos++;
                 }
             }
@@ -181,7 +180,7 @@ namespace City_Mail.Domain
                 foreach (var register in RegisterDictionary.Values)
                 {
                     Console.Write($@"
-      {"",7}{register.ID,-11}{register.Capacity,-11}{register.Reach,-8}{register.Registration,-11}");
+      {"",7}{register.ID,-11}{register.Capacity,-11}{register.Reach,-8}{register.RegistrationNumber,-11}");
                 }
             }
 

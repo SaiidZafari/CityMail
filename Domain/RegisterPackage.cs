@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace City_Mail.Domain
 {
-    class RegisterPackage
+    class RegisterPackage : Register
     {
         public RegisterPackage(int iD, string sender, string destination, string status, string vehicleID, DateTime registerDate, DateTime deliveryDate)
         {
@@ -14,20 +14,18 @@ namespace City_Mail.Domain
             Sender = sender;
             Destination = destination;
             Status = status;
-            VehicleID = vehicleID;
+            RegistrationNumber = vehicleID;
             RegisterDate = registerDate;
             DeliveryDate = deliveryDate;
         }
 
 
-        public int ID { get; } = AutoGeneratID();
+        public new int ID { get; } = AutoGeneratID();
         public string Sender { get; }
         public string Destination { get; }
         public string Status { get; set; }
-        public string VehicleID { get; }
         public DateTime RegisterDate { get; }
         public DateTime DeliveryDate { get; }
-
 
 
         public static void StatusCalculation()
@@ -61,11 +59,11 @@ namespace City_Mail.Domain
             }
 
             File.WriteAllLines(FilesPath.registerPackagePath, registerPackageDictionary.Select(kvp =>
-                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.VehicleID},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
+                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.RegistrationNumber},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
         }
 
 
-        public static int AutoGeneratID()
+        public static new int AutoGeneratID()
         {
             int startID = 1000; //It's just for demo else it can change to biger number
             List<int> keysList = new List<int>();
@@ -138,7 +136,7 @@ namespace City_Mail.Domain
                 foreach (var registerPackage in registerPackageDictionary.Values)
                 {
                     Console.Write($@"
-        {registerPackage.ID,-7}{registerPackage.Sender,-20}{registerPackage.Destination,-30}{registerPackage.VehicleID,-20}");
+        {registerPackage.ID,-7}{registerPackage.Sender,-20}{registerPackage.Destination,-30}{registerPackage.RegistrationNumber,-20}");
                 }
             }
 
@@ -193,7 +191,7 @@ namespace City_Mail.Domain
                 foreach (var registerPackage in registerPackageDictionary.Values)
                 {
                     Console.Write($@"
-        {registerPackage.ID,-7}{registerPackage.Sender,-15}{registerPackage.Destination,-20}{registerPackage.Status,-22}{Convert.ToDateTime(registerPackage.RegisterDate),-15:ddd HH:mm}{registerPackage.DeliveryDate,-15: ddd HH:mm}{registerPackage.VehicleID}");
+        {registerPackage.ID,-7}{registerPackage.Sender,-15}{registerPackage.Destination,-20}{registerPackage.Status,-22}{Convert.ToDateTime(registerPackage.RegisterDate),-15:ddd HH:mm}{registerPackage.DeliveryDate,-15: ddd HH:mm}{registerPackage.RegistrationNumber}");
                 }
             }
 

@@ -87,8 +87,8 @@ namespace CityMail.Domain
 
                               Password :");
 
-                Console.SetCursorPosition(0, 16);
-                //Console.SetCursorPosition(0, 26);
+                //Console.SetCursorPosition(0, 16);
+                Console.SetCursorPosition(0, 26);
                 Console.WriteLine($"\tPleas Enter {"Exit"} If you wish to close this Application!");
 
                 Regex regexUserName = new Regex(@"\w+");

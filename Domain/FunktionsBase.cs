@@ -55,7 +55,7 @@ namespace City_Mail.Domain
 
                     foreach (var carValue in carDictionary.Values)
                     {
-                        if (carValue.CarRegistrationNumber != registrationNumber)
+                        if (carValue.RegistrationNumber != registrationNumber)
                         {
                             continue;
 
@@ -175,7 +175,7 @@ namespace City_Mail.Domain
                     Console.WriteLine(transponderID);
                     foreach (var quadcopterValue in quadcopterDictionary.Values)
                     {
-                        if (quadcopterValue.TransponderID == transponderID)
+                        if (quadcopterValue.RegistrationNumber == transponderID)
                         {
                             Console.SetCursorPosition(20, 11);
                             Console.WriteLine("This transponder ID is already registered!");
@@ -296,7 +296,7 @@ namespace City_Mail.Domain
                     Console.WriteLine("                           ");
                     Console.SetCursorPosition(55, 5);
                     clientID = Console.ReadLine().ToLower();
-
+                    
                 } while (!clientIDRegex.IsMatch(clientID));
 
                 if (clientID == "car9999") { toExit = false; }
@@ -314,7 +314,7 @@ namespace City_Mail.Domain
                     Console.SetCursorPosition(70, 13);
                     Console.Write($@" {"Reach :",22} {regiterDictionary[clientID].Reach,-7}{"km"}");
                     Console.SetCursorPosition(70, 15);
-                    Console.Write($@" {"Registration Number :",22} {regiterDictionary[clientID].Registration,-10}");
+                    Console.Write($@" {"Registration Number :",22} {regiterDictionary[clientID].RegistrationNumber,-10}");
 
                     int options = Options("1. Edit", "2. Delete", "3. Exit");
                     Option option = (Option)options;
@@ -451,12 +451,12 @@ namespace City_Mail.Domain
 
         private static void WriteAllCarDictionaryToFile(Dictionary<string, CarRegister> carRegiterDictionary)
         {
-            File.WriteAllLines(FilesPath.carPath, carRegiterDictionary.Select(kvp => string.Format($@"{kvp.Value.ID},{kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.CarRegistrationNumber}")));
+            File.WriteAllLines(FilesPath.carPath, carRegiterDictionary.Select(kvp => string.Format($@"{kvp.Value.ID},{kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.RegistrationNumber}")));
         }
 
         private static void WriteAllQuadDictionaryToFile(Dictionary<string, QuadcopterRegister> quadcopterRegiterDictionary)
         {
-            File.WriteAllLines(FilesPath.quadcopterPath, quadcopterRegiterDictionary.Select(kvp => string.Format($@"{kvp.Value.ID},{kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.TransponderID}")));
+            File.WriteAllLines(FilesPath.quadcopterPath, quadcopterRegiterDictionary.Select(kvp => string.Format($@"{kvp.Value.ID},{kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.RegistrationNumber}")));
         }
 
 
@@ -719,7 +719,7 @@ namespace City_Mail.Domain
                         registerPackageDeictionary.Add(packageID, registerPackage);
 
                         File.AppendAllLines(FilesPath.registerPackagePath, registerPackageDeictionary.Select(kvp =>
-                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.VehicleID},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
+                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.RegistrationNumber},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
                         Console.SetCursorPosition(10, 11);
                         Console.Write("Package registered");
                         Thread.Sleep(2000);
@@ -945,7 +945,7 @@ namespace City_Mail.Domain
         private static void SaveToRegiterPackageFile(Dictionary<int, RegisterPackage> packageToDeleteDictionary)
         {
             File.WriteAllLines(FilesPath.registerPackagePath, packageToDeleteDictionary.Select(kvp =>
-                                    string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.VehicleID},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
+                                    string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.RegistrationNumber},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
         }
     }
 

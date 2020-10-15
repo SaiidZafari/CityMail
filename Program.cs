@@ -1,6 +1,7 @@
 ﻿using City_Mail.Domain;
 using CityMail.Domain;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -10,6 +11,24 @@ namespace CityMail
     {
         static void Main(string[] args)
         {
+            //int n = 0;
+            //Dictionary<string, Register> tempDic = Register.TransferRegisterDataBasetoDictionary();
+            //List<string> vehicleList = new List<string>();
+            //foreach (var vehicle in tempDic.Values)
+            //{
+            //    vehicleList.Add(vehicle.Registration);
+            //    n++;
+            //    Console.SetCursorPosition(0, 2+n);
+            //    Console.WriteLine($@"
+
+            //                {n} wehicle has Registring Number : {vehicle.Registration}");
+            //}
+
+            //Console.SetCursorPosition(30, 1);
+            //Console.WriteLine($@"There is {n} wehicle in this list");
+
+            //Console.ReadLine();
+
             do
             {
 

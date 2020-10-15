@@ -16,14 +16,14 @@ namespace CityMail.Domain
             ID = AutoGeneratID();
             Capacity = capacity;
             Reach = reach;
-            CarRegistrationNumber = carRegistrationNumber;
+            RegistrationNumber = carRegistrationNumber;
         }
         public CarRegister(string iD, int capacity, int reach, string carRegistrationNumber)
         {
             ID = iD;
             Capacity = capacity;
             Reach = reach;
-            CarRegistrationNumber = carRegistrationNumber;
+            RegistrationNumber = carRegistrationNumber;
         }
 
         public CarRegister(string iD)
@@ -36,7 +36,7 @@ namespace CityMail.Domain
             Capacity = capacity;
         }
 
-        public string CarRegistrationNumber { get; set; }
+        //public string RegistrationNumber { get; set; }
 
 
         public override string AutoGeneratID()
@@ -100,7 +100,7 @@ namespace CityMail.Domain
 
             addListToFileDictionary.Add(iD, addCarToList);
             File.AppendAllLines(FilesPath.carPath, addListToFileDictionary.Select(kvp =>
-            string.Format($"{kvp.Value.ID}, {kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.CarRegistrationNumber}")));
+            string.Format($"{kvp.Value.ID}, {kvp.Value.Capacity},{kvp.Value.Reach},{kvp.Value.RegistrationNumber}")));
 
         }
 
@@ -127,7 +127,7 @@ namespace CityMail.Domain
             foreach (var register in CarRegistarion.Values)
             {
                 Console.Write($@"
-            {register.ID,-12}{register.Capacity,-11}{register.Reach,-8}{register.CarRegistrationNumber,-11}");
+            {register.ID,-12}{register.Capacity,-11}{register.Reach,-8}{register.RegistrationNumber,-11}");
             }
             }
             
