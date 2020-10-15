@@ -391,18 +391,39 @@ namespace City_Mail.Domain
                             break;
 
                         case Option.Delete:
-                            if (carRegiterDictionary.ContainsKey(clientID))
-                            {
-                                carRegiterDictionary.Remove(clientID);
 
-                                WriteAllCarDictionaryToFile(carRegiterDictionary);
-                            }
-                            else
-                            {
-                                quadcopterRegiterDictionary.Remove(clientID);
+                            Console.SetCursorPosition(70, 18);
+                            Console.WriteLine("                                             ");
+                            Console.SetCursorPosition(70, 18);
+                            Console.Write("Are you sue you want to delete this? Y/N : ");
 
-                                WriteAllQuadDictionaryToFile(quadcopterRegiterDictionary);
+                            Regex yOrNRegex = new Regex(@"[YN]$");
+                            string answers = string.Empty;
+                            do
+                            {
+                                answers = Console.ReadKey().KeyChar.ToString();
+
+                            } while (!yOrNRegex.IsMatch(answers.ToUpper()));
+
+                            if (answers.ToUpper() == "Y")
+                            {
+                                Console.SetCursorPosition(70, 18);
+                                Console.WriteLine("                                             ");
+
+                                if (carRegiterDictionary.ContainsKey(clientID))
+                                {
+                                    carRegiterDictionary.Remove(clientID);
+
+                                    WriteAllCarDictionaryToFile(carRegiterDictionary);
+                                }
+                                else
+                                {
+                                    quadcopterRegiterDictionary.Remove(clientID);
+
+                                    WriteAllQuadDictionaryToFile(quadcopterRegiterDictionary);
+                                }
                             }
+                            
                             toExit = true;
                             break;
                         case Option.Exit:
@@ -593,8 +614,7 @@ namespace City_Mail.Domain
                     {
                         packageToDeleteDictionary.Remove(int.Parse(deleteID));
 
-                        File.WriteAllLines(FilesPath.registerPackagePath, packageToDeleteDictionary.Select(kvp =>
-                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.VehicleID},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
+                        SaveToRegiterPackageFile(packageToDeleteDictionary);                        
 
                         Console.SetCursorPosition(7, 10);
                         Console.Write($"ID number: {deleteID} deleted !                                   ");
@@ -800,9 +820,8 @@ namespace City_Mail.Domain
                     {
                         packageToDeleteDictionary.Remove(int.Parse(deleteID));
 
-                        File.WriteAllLines(FilesPath.registerPackagePath, packageToDeleteDictionary.Select(kvp =>
-                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
-
+                        SaveToRegiterPackageFile(packageToDeleteDictionary);
+                        
                         Console.SetCursorPosition(7, 10);
                         Console.Write($"ID number: {deleteID} deleted !                                   ");
                         Thread.Sleep(2000);
@@ -902,9 +921,7 @@ namespace City_Mail.Domain
                     if (answers == "Y")
                     {
                         packageToDeleteDictionary.Remove(int.Parse(deleteID));
-
-                        File.WriteAllLines(FilesPath.registerPackagePath, packageToDeleteDictionary.Select(kvp =>
-                        string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
+                        SaveToRegiterPackageFile(packageToDeleteDictionary);
 
                         Console.SetCursorPosition(7, 10);
                         Console.Write($"ID number: {deleteID} deleted !                                   ");
@@ -925,6 +942,11 @@ namespace City_Mail.Domain
             } while (doAgain);
         }
 
+        private static void SaveToRegiterPackageFile(Dictionary<int, RegisterPackage> packageToDeleteDictionary)
+        {
+            File.WriteAllLines(FilesPath.registerPackagePath, packageToDeleteDictionary.Select(kvp =>
+                                    string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.VehicleID},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
+        }
     }
 
     public enum Option

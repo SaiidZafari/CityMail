@@ -87,11 +87,12 @@ namespace CityMail.Domain
 
                               Password :");
 
-                Console.SetCursorPosition(0, 26);
+                Console.SetCursorPosition(0, 16);
+                //Console.SetCursorPosition(0, 26);
                 Console.WriteLine($"\tPleas Enter {"Exit"} If you wish to close this Application!");
 
-                Regex regexUserName = new Regex(@"\w");
-                Regex regexPassword = new Regex(@"[a-zA-Z0-9!()]");
+                Regex regexUserName = new Regex(@"\w+");
+                Regex regexPassword = new Regex(@"[a-zA-Z0-9!()]+");
                 string userName;
                 string password;
 
@@ -159,6 +160,8 @@ namespace CityMail.Domain
                         continue;
                     }
                 }
+
+                System.Threading.Thread.Sleep(2000);
 
             } while (doAgain);
 

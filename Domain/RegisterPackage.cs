@@ -16,23 +16,23 @@ namespace City_Mail.Domain
             Status = status;
             VehicleID = vehicleID;
             RegisterDate = registerDate;
-            DeliveryDate = deliveryDate;           
+            DeliveryDate = deliveryDate;
         }
 
 
-        public int ID { get; set; } = AutoGeneratID();
-        public string Sender { get; set; }
-        public string Destination { get; set; }
+        public int ID { get; } = AutoGeneratID();
+        public string Sender { get; }
+        public string Destination { get; }
         public string Status { get; set; }
-        public string VehicleID { get; set; }
-        public DateTime RegisterDate { get; set; }
-        public DateTime DeliveryDate { get; set; }
+        public string VehicleID { get; }
+        public DateTime RegisterDate { get; }
+        public DateTime DeliveryDate { get; }
 
 
 
         public static void StatusCalculation()
         {
-            
+
             string status = string.Empty;
             Dictionary<int, RegisterPackage> registerPackageDictionary = TransferRegisterPackageDataBasetoDictionary();
 
@@ -54,7 +54,7 @@ namespace City_Mail.Domain
                 }
                 else
                 {
-                    status = "Comming soon"; 
+                    status = "Comming soon";
                 }
 
                 package.Status = status;
@@ -92,7 +92,7 @@ namespace City_Mail.Domain
                 {
                     startID = keysList.Max() + 1;
                 }
-            }            
+            }
 
             return startID;
         }
@@ -142,7 +142,7 @@ namespace City_Mail.Domain
                 }
             }
 
-            
+
         }
 
         public static void ViewPackageList()
@@ -173,7 +173,7 @@ namespace City_Mail.Domain
 
 
         public static void ViewRegistrationStatusList()
-        {            
+        {
             StatusCalculation();
             Dictionary<int, RegisterPackage> registerPackageDictionary = TransferRegisterPackageDataBasetoDictionary();
 
@@ -193,7 +193,7 @@ namespace City_Mail.Domain
                 foreach (var registerPackage in registerPackageDictionary.Values)
                 {
                     Console.Write($@"
-        {registerPackage.ID,-7}{registerPackage.Sender,-15}{registerPackage.Destination,-20}{registerPackage.Status, -22}{Convert.ToDateTime(registerPackage.RegisterDate), -15:ddd HH:mm}{registerPackage.DeliveryDate , -15 : ddd HH:mm}{registerPackage.VehicleID}");
+        {registerPackage.ID,-7}{registerPackage.Sender,-15}{registerPackage.Destination,-20}{registerPackage.Status,-22}{Convert.ToDateTime(registerPackage.RegisterDate),-15:ddd HH:mm}{registerPackage.DeliveryDate,-15: ddd HH:mm}{registerPackage.VehicleID}");
                 }
             }
 

@@ -2,6 +2,7 @@
 using CityMail.Domain;
 using System;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace CityMail
 {
@@ -13,6 +14,7 @@ namespace CityMail
             {
 
                 User.UserAccessControl();
+                
                 bool toExit2 = true;
                 do
                 {
@@ -124,6 +126,10 @@ namespace CityMail
                             FunktionsBase.StartDeliveryPackages();
                             break;
                         case Menu.Logout:
+                            Console.Clear();
+                            Console.SetCursorPosition(30, 9);
+                            Console.WriteLine("You will be log out now ...");
+                            Thread.Sleep(2000);
                             toExit2 = false;
                             break;
                         default:

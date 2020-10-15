@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Collections;
+using System.Security.Cryptography;
 
 namespace City_Mail.Domain
 {
     class Register
     {
+        
         public string ID { get;  set; }
         public int Capacity { get; set; }
         public int Reach { get;  set; }
@@ -46,6 +49,8 @@ namespace City_Mail.Domain
 
             return startID.ToString();
         }
+
+
 
         public static void AddCarAndQuadcopterToRegisterDB()
         {
@@ -162,17 +167,17 @@ namespace City_Mail.Domain
             if (RegisterDictionary.Count == 0)
             {
                 Console.WriteLine($@"
-     {"", 7}{"",3}{"ID",-8}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
-     {"", 7}             {"(kg)"}     {"(km)"}     {"number"}
+     {"",7}{"",3}{"ID",-8}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
+     {"",7}             {"(kg)"}     {"(km)"}     {"number"}
           
-     {"", 7}==========================================");
+     {"",7}==========================================");
             }
             else
             {
                 Console.WriteLine($@"
             {"",3}{"ID",-8}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
                          {"(kg)"}     {"(km)"}     {"number"}
-     {"", 7}==========================================");
+     {"",7}==========================================");
                 foreach (var register in RegisterDictionary.Values)
                 {
                     Console.Write($@"
@@ -181,5 +186,6 @@ namespace City_Mail.Domain
             }
 
         }
+
     }
 }
