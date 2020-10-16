@@ -16,6 +16,8 @@ namespace City_Mail.Domain
             string answer = string.Empty;
             bool doAgain = false;
             bool doExit = false;
+            string carID = string.Empty;
+            Register carRegister = new CarRegister(carID);
 
             do
             {
@@ -35,12 +37,12 @@ namespace City_Mail.Domain
                 Console.WriteLine($" {"To exit write ZZZ000"}");
 
                 Console.SetCursorPosition(0, 15);
-                CarRegister.ViewCarRegistrationList();
+                carRegister.ViewRegistrationList();
 
-                string carID = string.Empty;
-                Register register = new CarRegister(carID);
+                //string carID = string.Empty;
+                //Register register = new CarRegister(carID);
                 Console.SetCursorPosition(29, 6);
-                Console.WriteLine($"{register.AutoGeneratID()}");
+                Console.WriteLine($"{carRegister.AutoGeneratID()}");
 
                 Regex registrationNumberRegex = new Regex(@"[a-zA-Z][a-zA-Z][a-zA-Z][0-9][0-9][0-9a-zA-Z]$");
                 string registrationNumber = string.Empty;
@@ -98,10 +100,10 @@ namespace City_Mail.Domain
                     Console.Write("                                                  ");
                     if (answer.ToUpper() == "Y")
                     {
-                        CarRegister.AddCarRegistrationToDBList(register.AutoGeneratID(), capacity, reach, registrationNumber);
+                        CarRegister.AddCarRegistrationToDBList(carRegister.AutoGeneratID(), capacity, reach, registrationNumber);
                         //CarRegister.AddCarRegistrationToDBList(carID, capacity, reach, registrationNumber);
                         Console.SetCursorPosition(0, 15);
-                        CarRegister.ViewCarRegistrationList();
+                        carRegister.ViewRegistrationList();
 
                         Console.SetCursorPosition(8, 13);
                         Console.Write("Delivery unit registered !");
@@ -137,7 +139,8 @@ namespace City_Mail.Domain
             string answer = string.Empty;
             bool doAgain = false;
             bool doExit = false;
-
+            string iD = string.Empty;
+            Register quadcopterRegister = new QuadcopterRegister(iD);
             do
             {
                 Dictionary<string, QuadcopterRegister> quadcopterDictionary = QuadcopterRegister.TransferQuadcopterDataBasetoDictionary();
@@ -156,7 +159,7 @@ namespace City_Mail.Domain
                 Console.WriteLine($" {"To exit write Z00Z00"}");
 
                 Console.SetCursorPosition(0, 15);
-                QuadcopterRegister.ViewQuadcopterRegistrationList();
+                quadcopterRegister.ViewRegistrationList();
 
                 string quadcopterID = string.Empty;
                 Register register = new QuadcopterRegister(quadcopterID);
@@ -217,7 +220,7 @@ namespace City_Mail.Domain
                     {
                         QuadcopterRegister.AddQuadcopterRegistrationToDBList(register.AutoGeneratID(), capacity, reach, transponderID);
                         Console.SetCursorPosition(0, 15);
-                        QuadcopterRegister.ViewQuadcopterRegistrationList();
+                        quadcopterRegister.ViewRegistrationList();
 
                         Console.SetCursorPosition(8, 13);
                         Console.Write("Delivery unit registered !");
@@ -260,12 +263,13 @@ namespace City_Mail.Domain
 
             bool toExit = false;
             bool moreChange = false;
-
+            Register register = new Register();
             do
             {
                 Dictionary<string, Register> regiterDictionary = Register.TransferRegisterDataBasetoDictionary();
                 Dictionary<string, CarRegister> carRegiterDictionary = CarRegister.TransferCarDataBasetoDictionary();
                 Dictionary<string, QuadcopterRegister> quadcopterRegiterDictionary = QuadcopterRegister.TransferQuadcopterDataBasetoDictionary();
+                Dictionary<int, RegisterPackage> deleteControlDictionery = RegisterPackage.TransferRegisterPackageDataBasetoDictionary();
 
                 Console.Clear();
                 Console.WriteLine($@"
@@ -278,7 +282,7 @@ namespace City_Mail.Domain
                               car(8)123 / quad(9)123 ");
 
                 Console.SetCursorPosition(0, 10);
-                Register.ViewRegistrationList();
+                register.ViewRegistrationList();
 
                 Console.SetCursorPosition(90, 24);
                 Console.WriteLine("Enter (car9999) to Exit");
@@ -390,7 +394,30 @@ namespace City_Mail.Domain
 
                             break;
 
-                        case Option.Delete:
+                        case Option.Delete:         // delete function control
+
+                            bool vehicleExist = false;
+
+                            foreach (var vehicle in deleteControlDictionery.Values)
+                            {
+                                if (vehicle.RegistrationNumber == clientID)
+                                {
+                                    Console.SetCursorPosition(70, 18);
+                                    Console.WriteLine("                                             ");
+                                    Console.SetCursorPosition(70, 18);
+                                    Console.WriteLine(" STOP! This vehicle is under production.");
+                                    Thread.Sleep(3000);
+                                    vehicleExist = true;
+                                }
+                                else { continue; }
+                            }
+
+                            if (vehicleExist)
+                            {
+
+                                toExit = true;
+                                break;
+                            }
 
                             Console.SetCursorPosition(70, 18);
                             Console.WriteLine("                                             ");
@@ -707,7 +734,7 @@ namespace City_Mail.Domain
                     if (answer == "Y")
                     {
                         DateTime date1 = DateTime.Now;
-                        DateTime date2 = DateTime.Now.AddMinutes(60);
+                        DateTime date2 = DateTime.Now.AddDays(6);
                         //string status = RegisterPackage.StatusCalculation();
                         status = "Commin Soon";
                         

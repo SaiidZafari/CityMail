@@ -158,7 +158,7 @@ namespace City_Mail.Domain
 
         }
 
-        public static void ViewRegistrationList()
+        public virtual void ViewRegistrationList()
         {
             AddCarAndQuadcopterToRegisterDB();
             Dictionary<string, Register> RegisterDictionary = TransferRegisterDataBasetoDictionary();

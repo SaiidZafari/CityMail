@@ -10,14 +10,14 @@ namespace CityMail.Domain
 {
     class CarRegister : Register
     {
-        
-        public CarRegister(int capacity, int reach, string carRegistrationNumber) 
-        {            
-            ID = AutoGeneratID();
-            Capacity = capacity;
-            Reach = reach;
-            RegistrationNumber = carRegistrationNumber;
-        }
+
+        //public CarRegister(int capacity, int reach, string carRegistrationNumber)
+        //{
+        //    ID = AutoGeneratID();
+        //    Capacity = capacity;
+        //    Reach = reach;
+        //    RegistrationNumber = carRegistrationNumber;
+        //}
         public CarRegister(string iD, int capacity, int reach, string carRegistrationNumber)
         {
             ID = iD;
@@ -107,24 +107,24 @@ namespace CityMail.Domain
        
 
 
-        public static void ViewCarRegistrationList()
+        public override void ViewRegistrationList()
         {
             Dictionary<string, CarRegister> CarRegistarion = TransferCarDataBasetoDictionary();
 
             if (CarRegistarion.Count == 0)
             {
                 Console.WriteLine($@"
-            {"",3}{"ID",-9}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
-                         {"(kg)"}     {"(km)"}     {"number"}
-            ===========================================");
+           {"",3}{"ID",-8}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
+             {"(Car)",-13}{"(kg)",-9}{"(km)",-11}{"number"}
+            ==========================================");
             }
             else
             {
                 Console.WriteLine($@"
-            {"",3}{"ID",-9}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
-                         {"(kg)"}     {"(km)"}     {"number"}
-            ===========================================");
-            foreach (var register in CarRegistarion.Values)
+            {"",3}{"ID",-8}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
+             {"(Car)",-13}{"(kg)",-9}{"(km)",-11}{"number"}
+            ==========================================");
+                foreach (var register in CarRegistarion.Values)
             {
                 Console.Write($@"
             {register.ID,-12}{register.Capacity,-11}{register.Reach,-8}{register.RegistrationNumber,-11}");

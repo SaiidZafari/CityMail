@@ -98,22 +98,22 @@ namespace City_Mail.Domain
         }
 
 
-        public static void ViewQuadcopterRegistrationList()
+        public override void ViewRegistrationList()
         {
             Dictionary<string, QuadcopterRegister> quadcopterRegistarion = TransferQuadcopterDataBasetoDictionary();
 
             if (quadcopterRegistarion.Count == 0)
             {
                 Console.WriteLine($@"
-            {"",3}{"ID",-8}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
-                         {"(kg)"}     {"(km)"}     {"number"}
+             {"",3}{"ID",-8}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
+             {"(Quad)",-12}{"(kg)",-9}{"(km)",-11}{"number"}
             ==========================================");
             }
             else
             {
                 Console.WriteLine($@"
             {"",3}{"ID",-8}{"Capacity",-11}{"Reach",-8}{"Registration",-10}
-                         {"(kg)"}     {"(km)"}     {"number"}
+             {"(Quad)",-12}{"(kg)",-9}{"(km)",-11}{"number"}
             ==========================================");
                 foreach (var register in quadcopterRegistarion.Values)
                 {

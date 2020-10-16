@@ -42,13 +42,13 @@ namespace City_Mail.Domain
 
                 TimeSpan difference = dateDelivery - dateNow;
 
-                if (difference.Minutes <= 0)
+                if (difference.Hours <= 0)
                 {
                     status = "Delivered";
                 }
-                else if (difference.Minutes > 0)
+                else if (difference.Hours > 0)
                 {
-                    status = $"{difference.Minutes } min to Delivery";
+                    status = $"{difference.Hours } hours to Delivery";
                 }
                 else
                 {
@@ -62,6 +62,39 @@ namespace City_Mail.Domain
                         string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.RegistrationNumber},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
         }
 
+        //public static void StatusCalculation()
+        //{
+
+        //    string status = string.Empty;
+        //    Dictionary<int, RegisterPackage> registerPackageDictionary = TransferRegisterPackageDataBasetoDictionary();
+
+        //    foreach (var package in registerPackageDictionary.Values)
+        //    {
+
+        //        DateTime dateNow = DateTime.Now;
+        //        DateTime dateDelivery = package.DeliveryDate;
+
+        //        TimeSpan difference = dateDelivery - dateNow;
+
+        //        if (difference.Minutes <= 0)
+        //        {
+        //            status = "Delivered";
+        //        }
+        //        else if (difference.Minutes > 0)
+        //        {
+        //            status = $"{difference.Minutes } min to Delivery";
+        //        }
+        //        else
+        //        {
+        //            status = "Comming soon";
+        //        }
+
+        //        package.Status = status;
+        //    }
+
+        //    File.WriteAllLines(FilesPath.registerPackagePath, registerPackageDictionary.Select(kvp =>
+        //                string.Format($"{kvp.Value.ID},{kvp.Value.Sender},{kvp.Value.Destination},{kvp.Value.Status},{kvp.Value.RegistrationNumber},{kvp.Value.RegisterDate},{kvp.Value.DeliveryDate}")));
+        //}
 
         public static new int AutoGeneratID()
         {

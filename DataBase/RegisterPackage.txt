@@ -1,4 +1,4 @@
-1000,Johan Doe,Sesame Street 1,17 min to Delivery, car8000,14-10-2020 22:44:34,15-10-2020 23:44:34
-1001,Peter Pan,Neverlan 234,34 min to Delivery,quad9000,14-10-2020 23:00:55,16-10-2020 05:00:55
-1002,Kim Larsen,Copenhagen 2653,8 min to Delivery,car8001,15-10-2020 14:35:53,16-10-2020 12:35:53
-1003,Ole Hansson,Lund street 987,11 min to Delivery,quad9001,15-10-2020 14:38:05,16-10-2020 17:38:05
+1001,Peter Pan,Neverlan 234,16 hours to Delivery,quad9000,14-10-2020 23:00:55,20-10-2020 05:00:55
+1002,Kim Larsen,Copenhagen 2653,Delivered,car8001,15-10-2020 14:35:53,22-10-2020 12:35:53
+1003,Ole Hansson,Lund street 987,5 hours to Delivery,quad9001,15-10-2020 14:38:05,24-10-2020 17:38:05
+1004,Johan Doe,Sesame street 1,21 hours to Delivery,car8000,16-10-2020 09:54:21,22-10-2020 09:54:21
