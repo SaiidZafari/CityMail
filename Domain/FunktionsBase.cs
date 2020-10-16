@@ -734,7 +734,7 @@ namespace City_Mail.Domain
                     if (answer == "Y")
                     {
                         DateTime date1 = DateTime.Now;
-                        DateTime date2 = DateTime.Now.AddDays(6);
+                        DateTime date2 = DateTime.Now.AddHours(6);
                         //string status = RegisterPackage.StatusCalculation();
                         status = "Commin Soon";
                         
